@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메뉴 클론 - F1 팀 리스트</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Pretendard", "Malgun Gothic", sans-serif; background: #fff; color: #222; }
+
+  .menu {
+    display: flex; justify-content: center; gap: 28px;
+    padding: 20px 16px; overflow-x: auto; scrollbar-width: none;
+  }
+  .menu::-webkit-scrollbar { display: none; }
+
+  .item {
+    position: relative; flex: 0 0 auto; display: flex; flex-direction: column;
+    align-items: center; gap: 8px; text-decoration: none; color: #333;
+    font-size: 13px; white-space: nowrap;
+  }
+  .icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: grid; place-items: center;
+    color: #fff; font-weight: 800; font-size: 18px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+    transition: transform .2s ease;
+  }
+  .item:hover .icon { transform: translateY(-3px); }
+  .item:hover { color: #000; font-weight: 600; }
+
+  .badge {
+    position: absolute; top: -8px; right: -10px;
+    background: #2f6bff; color: #fff; font-size: 10px; font-weight: 700;
+    padding: 2px 6px; border-radius: 999px;
+  }
+
+  @media (max-width: 480px) {
+    .menu { justify-content: flex-start; gap: 18px; }
+  }
+</style>
+</head>
+<body>
+  <nav class="menu" id="menu"></nav>
+
+<script>
+  const teams = [
+    { name: "메르세데스",  short: "M",  color: "linear-gradient(135deg,#00a19c,#00d2be)" },
+    { name: "페라리",      short: "F",  color: "linear-gradient(135deg,#c00000,#ff2800)" },
+    { name: "레드불",      short: "RB", color: "linear-gradient(135deg,#1e2a5a,#fcd700)", badge: "추천" },
+    { name: "맥라렌",      short: "M",  color: "linear-gradient(135deg,#ff8000,#ffb366)" },
+    { name: "윌리엄스",    short: "W",  color: "linear-gradient(135deg,#005aff,#7fb2ff)" },
+    { name: "애스턴마틴",  short: "AM", color: "linear-gradient(135deg,#006f62,#2ea38f)" },
+  ];
+
+  const menu = document.getElementById("menu");
+  teams.forEach(t => {
+    const a = document.createElement("a");
+    a.className = "item";
+    a.href = "#";
+    a.innerHTML = `
+      ${t.badge ? `<span class="badge">${t.badge}</span>` : ""}
+      <span class="icon" style="background:${t.color}">${t.short}</span>
+      <span>${t.name}</span>`;
+    menu.appendChild(a);
+  });
+</script>
+</body>
+</html>
