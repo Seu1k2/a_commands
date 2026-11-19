@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>클론 코딩 - 갤러리 (img01)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Pretendard", "Malgun Gothic", sans-serif; background: #fff; color: #222; }
+
+  nav.cats {
+    display: flex; justify-content: center; gap: 36px; flex-wrap: wrap;
+    padding: 18px 16px 14px; border-bottom: 1px solid #eee;
+    overflow-x: auto;
+  }
+  nav.cats a {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-size: 13px; color: #444; text-decoration: none; white-space: nowrap;
+  }
+  nav.cats a .ico { width: 20px; height: 20px; border-radius: 4px; background: #ccc; }
+  nav.cats a.active { color: #00b7c3; font-weight: 700; }
+  nav.cats a.active .ico { background: #00b7c3; }
+
+  main { padding: 24px 16px 60px; }
+  .grid {
+    display: grid; gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    max-width: 1400px; margin: 0 auto;
+  }
+  .card { display: block; color: inherit; text-decoration: none; }
+  .thumb {
+    aspect-ratio: 1 / 1; border-radius: 6px; overflow: hidden;
+    background: var(--bg, #ddd);
+    transition: transform .25s ease;
+  }
+  .card:hover .thumb { transform: translateY(-3px); }
+  .meta {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 10px; font-size: 14px;
+  }
+  .author { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .avatar { width: 22px; height: 22px; border-radius: 50%; background: #999; }
+  .stats { display: flex; gap: 10px; color: #888; font-size: 13px; }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    nav.cats { justify-content: flex-start; gap: 22px; }
+  }
+</style>
+</head>
+<body>
+  <nav class="cats">
+    <a href="#" class="active"><span class="ico"></span>전체</a>
+    <a href="#"><span class="ico"></span>영상/모션그래픽</a>
+    <a href="#"><span class="ico"></span>그래픽 디자인</a>
+    <a href="#"><span class="ico"></span>브랜딩/편집</a>
+    <a href="#"><span class="ico"></span>UI/UX</a>
+    <a href="#"><span class="ico"></span>일러스트레이션</a>
+    <a href="#"><span class="ico"></span>디지털 아트</a>
+    <a href="#"><span class="ico"></span>AI</a>
+    <a href="#"><span class="ico"></span>캐릭터 디자인</a>
+    <a href="#"><span class="ico"></span>제품/패키지 디자인</a>
+    <a href="#"><span class="ico"></span>포토그래피</a>
+    <a href="#"><span class="ico"></span>타이포그래피</a>
+    <a href="#"><span class="ico"></span>공예</a>
+    <a href="#"><span class="ico"></span>파인아트</a>
+  </nav>
+
+  <main>
+    <div class="grid" id="grid"></div>
+  </main>
+
+<script>
+  const items = [
+    { author: "Hi high studio Hah Kim", views: 191, likes: 9,  bg: "linear-gradient(135deg,#2b2b2b,#8a8a8a)" },
+    { author: "25min",                  views: 196, likes: 2,  bg: "linear-gradient(160deg,#e0245e,#ff8fa3)" },
+    { author: "시나브",                  views: 192, likes: 2,  bg: "linear-gradient(160deg,#6b7f4a,#c9d7b0)" },
+    { author: "모래",                    views: 182, likes: 9,  bg: "linear-gradient(135deg,#000,#333)" },
+    { author: "홍희정",                  views: 159, likes: 6,  bg: "linear-gradient(160deg,#1f4e79,#7fb0d9)" },
+    { author: "인몰드",                  views: 247, likes: 11, bg: "linear-gradient(160deg,#5a3b2e,#2e4a3a)" },
+  ];
+
+  const grid = document.getElementById("grid");
+  // 카드 생성 (반복해서 채워서 그리드를 길게 보이게 함)
+  for (let i = 0; i < 4; i++) {
+    items.forEach(it => {
+      const a = document.createElement("a");
+      a.className = "card";
+      a.href = "#";
+      a.innerHTML = `
+        <div class="thumb" style="--bg:${it.bg}"></div>
+        <div class="meta">
+          <span class="author"><span class="avatar"></span>${it.author}</span>
+          <span class="stats"><span>👁 ${it.views}</span><span>♥ ${it.likes}</span></span>
+        </div>`;
+      grid.appendChild(a);
+    });
+  }
+</script>
+</body>
+</html>
